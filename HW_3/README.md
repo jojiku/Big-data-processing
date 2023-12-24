@@ -33,23 +33,30 @@ docker-compose exec kafka kafka-topics.sh --bootstrap-server kafka:9092 --alter 
 
 ### Hadoop
 1. Сначала запускаем неймноду с командой command: ["hdfs", "namenode", "-format", "-force"]
+
 docker-compose up -d namenode
 Так запуститься надо только в первый раз (либо, после того, как вы снесли образ и примонтированный раздел)
 3. После того, как контейнер отработал и завершился, запускаемся с командой command: ["hdfs", "namenode"]
+
 docker-compose up -d namenode
 5. После неймноды поднимаем датаноды, нодменеджеры и т.д.
+
 docker-compose up -d datanode1 nodemanager1 resourcemanager 
 
 
 Для запуска hive:
 1. Сначала поднимаем постгрес.
+
 docker-compose up -d postgres
 3. Затем поднимаем метастор с командой command: ["schematool", "--dbType", "postgres", "--initSchema"]
+
 docker-compose up -d metastore
 Так запуститься надо только в первый раз (либо, после того, как вы снесли образ и примонтированный раздел)
 5. После того, как контейнер отработал и завершился, запускаемся с командой command: [ "hive", "--service", "metastore" ]
+
 docker-compose up -d metastore
 7. После метастора запускаем hiveserver2
+
 docker-compose up -d hiveserver2
 
 
